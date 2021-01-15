@@ -14,14 +14,18 @@ New/This/Pointers/References conclusion
          on the heap without leaking, without using smart pointers. 
  */
 
+struct A {};
 
+struct HeapA
+{
+    ~HeapA()
+    {
+        delete ownedA;
+        ownedA = nullptr;
+    }
 
-
-
-
-
-
-
+    A* ownedA = new A();
+};
 
 
  /*
@@ -282,3 +286,5 @@ int main()
 }
 
 
+//  1) Edit your 3 structs so that they own a heap-allocated primitive type without using smart pointers named 'value'
+//          IntType should own a heap-allocated int, for example.
