@@ -18,13 +18,13 @@ struct A {};
 
 struct HeapA
 {
+    A* ownedA = new A();
+    
     ~HeapA()
     {
         delete ownedA;
         ownedA = nullptr;
     }
-
-    A* ownedA = new A();
 };
 
 
@@ -185,6 +185,14 @@ int main()
 
 struct FloatType
 {
+    float* value = nullptr;
+    
+    ~FloatType()
+    {
+        delete value;
+        value = nullptr;
+    }
+
     float add(float lhs, float rhs);
     float subtract(float lhs, float rhs);
     float multiply(float lhs, float rhs );  
@@ -206,6 +214,14 @@ float FloatType::divide(float lhs, float rhs)
 
 struct DoubleType
 {
+    double* value = nullptr;
+
+    ~DoubleType()
+    {
+        delete value;
+        value = nullptr;
+    }
+
     double add(double lhs, double rhs);
     double subtract(double lhs, double rhs);
     double multiply(double lhs, double rhs);
@@ -226,6 +242,15 @@ double DoubleType::divide(double lhs, double rhs) { FIXME curly braces go on the
 
 struct IntType
 {
+    int* value = nullptr;
+
+    ~IntType()
+    {
+        delete value;
+        value = nullptr;
+    }
+
+
     int add(int lhs, int rhs);
     int subtract(int lhs, int rhs);
     int multiply(int lhs, int rhs);
@@ -286,5 +311,3 @@ int main()
 }
 
 
-//  1) Edit your 3 structs so that they own a heap-allocated primitive type without using smart pointers named 'value'
-//          IntType should own a heap-allocated int, for example.
