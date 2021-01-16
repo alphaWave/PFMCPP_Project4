@@ -124,24 +124,38 @@ struct FloatType
         value = nullptr;
     }
 
-    float add(float lhs, float rhs);
-    float subtract(float lhs, float rhs);
-    float multiply(float lhs, float rhs );  
-    float divide(float lhs, float rhs );
+    FloatType& add(float rhs);
+    FloatType& subtract(float rhs);
+    FloatType& multiply(float rhs );  
+    FloatType& divide(float rhs );
 };
 
+// dereference pointer to get the pointed-at object
 
-float FloatType::add(float lhs, float rhs) { return lhs + rhs; }
-float FloatType::subtract(float lhs, float rhs) { return lhs - rhs; }
-float FloatType::multiply(float lhs, float rhs) { return lhs * rhs; }
-float FloatType::divide(float lhs, float rhs)
+FloatType& FloatType::add(float rhs) 
 {
-    if (0.0f == rhs) 
+    if (value != nullptr) *value += rhs;
+    return *this;
+}
+FloatType& FloatType::subtract(float rhs) 
+{
+    if (value != nullptr) *value -= rhs;
+    return *this; 
+}
+FloatType& FloatType::multiply(float rhs) 
+{
+    if (value != nullptr) *value *= rhs;
+    return *this;
+}
+FloatType& FloatType::divide(float rhs)
+{
+    if (rhs == 0.0f) 
     {
         std::cout << std::endl;
         std::cout << "warning, floating point division by zero returns 'inf' !" << std::endl;
     }
-    return lhs / rhs;
+    if (value != nullptr) *value /= rhs;
+    return *this;
 }
 
 // ---------
@@ -157,23 +171,36 @@ struct DoubleType
         value = nullptr;
     }
 
-    double add(double lhs, double rhs);
-    double subtract(double lhs, double rhs);
-    double multiply(double lhs, double rhs);
-    double divide(double lhs, double rhs);
+    DoubleType& add(double rhs);
+    DoubleType& subtract(double rhs);
+    DoubleType& multiply(double rhs);
+    DoubleType& divide(double rhs);
 };
 
-double DoubleType::add(double lhs, double rhs) { return lhs + rhs; }
-double DoubleType::subtract(double lhs, double rhs) { return lhs - rhs; }
-double DoubleType::multiply(double lhs, double rhs) { return lhs * rhs; }
-double DoubleType::divide(double lhs, double rhs) 
+DoubleType& DoubleType::add(double rhs)
+{
+    if (value != nullptr) *value += rhs;
+    return *this;
+}
+DoubleType& DoubleType::subtract(double rhs)
+{
+    if (value != nullptr) *value -= rhs;
+    return *this;
+}
+DoubleType& DoubleType::multiply(double rhs)
+{
+    if (value != nullptr) *value *= rhs;
+    return *this;
+}
+DoubleType& DoubleType::divide(double rhs) 
 {
     if (0.0 == rhs) 
     {
         std::cout << std::endl;
         std::cout << "warning, floating point division by zero returns 'inf' !" << std::endl;
     }
-    return lhs / rhs;
+    if (value != nullptr) *value /= rhs;
+    return *this;
 }
 
 // ---------
@@ -190,24 +217,37 @@ struct IntType
     }
 
 
-    int add(int lhs, int rhs);
-    int subtract(int lhs, int rhs);
-    int multiply(int lhs, int rhs);
-    int divide(int lhs, int rhs);
+    IntType& add(int rhs);
+    IntType& subtract(int rhs);
+    IntType& multiply(int rhs);
+    IntType& divide(int rhs);
 };
 
-int IntType::add(int lhs, int rhs) { return lhs + rhs; }
-int IntType::subtract(int lhs, int rhs) { return lhs - rhs; }
-int IntType::multiply(int lhs, int rhs) { return lhs * rhs; }
-int IntType::divide(int lhs, int rhs)
+IntType& IntType::add(int rhs)
+{
+    if (value != nullptr) *value += rhs;
+    return *this;
+}
+IntType& IntType::subtract(int rhs)
+{
+    if (value != nullptr) *value -= rhs;
+    return *this;
+}
+IntType& IntType::multiply(int rhs)
+{
+    if (value != nullptr) *value *= rhs;
+    return *this;
+}
+IntType& IntType::divide(int rhs)
 {
     if (0 == rhs) 
     {
         std::cout << "error, integer division by zero will crash the program!" << std::endl;
         std::cout << "returning lhs" << std::endl;
-        return lhs;
+        return *this;
     }
-    return lhs / rhs;
+    if (value != nullptr) *value /= rhs;
+    return *this;
 }
 
 // ---------
