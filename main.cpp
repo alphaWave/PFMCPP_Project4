@@ -11,8 +11,10 @@
     I recommend committing after you get each step working so you can revert to a working version easily if needed.
 
  1) remove your functions that accepted a User-Defined Type
+ -> DONE
  
  2) remove any getValue() functions if you added them
+ -> DONE
  
  3) move all of your add/subtract/multiply/divide implementations out of the class.
   
