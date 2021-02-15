@@ -356,6 +356,8 @@ int main()
 
     std::cout << "---------------------\n" << std::endl; 
 
+    part3();
+
     std::cout << "good to go!\n";
 
     return 0;
