@@ -21,6 +21,7 @@
   
  4) add user-defined conversion functions that convert to the numeric type your object holds.
         i.e. if your type holds an int, you'll need an operator int() function.
+-> DONE
  
  5) make your member variable private.
          this conversion function should be the ONLY WAY to access the held value.
@@ -142,6 +143,8 @@ struct FloatType
         value = nullptr;
     }
 
+    operator float() { return *value; }
+
     FloatType& add(float rhs);
     FloatType& subtract(float rhs);
     FloatType& multiply(float rhs);  
@@ -160,6 +163,8 @@ struct DoubleType
         delete value;
         value = nullptr;
     }
+
+    operator double() { return *value; }
 
     DoubleType& add(double rhs);
     DoubleType& subtract(double rhs);
@@ -180,6 +185,7 @@ struct IntType
         value = nullptr;
     }
 
+    operator int() { return *value; }
 
     IntType& add(int rhs);
     IntType& subtract(int rhs);
