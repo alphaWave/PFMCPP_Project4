@@ -17,6 +17,7 @@
  -> DONE
  
  3) move all of your add/subtract/multiply/divide implementations out of the class.
+ -> DONE
   
  4) add user-defined conversion functions that convert to the numeric type your object holds.
         i.e. if your type holds an int, you'll need an operator int() function.
