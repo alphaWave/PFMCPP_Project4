@@ -46,7 +46,12 @@ Project 4: Part 4 / 9
  You will need to use Forward Declaration and out-of-class definitions to complete this.
  */
 
+#include <iostream>
+#include <cmath>
 
+struct FloatType;
+struct DoubleType;
+struct IntType;
 
 struct Point
 {
@@ -257,10 +262,7 @@ struct HeapA
     }
 };
 
-#include <iostream>
-
-struct DoubleType;
-struct IntType;
+// ---
 
 struct FloatType
 {
@@ -280,6 +282,12 @@ struct FloatType
     FloatType& subtract(float rhs);
     FloatType& multiply(float rhs);  
     FloatType& divide(float rhs);
+
+    FloatType& pow(const FloatType& exp);
+    FloatType& pow(const DoubleType& exp);
+    FloatType& pow(const IntType& exp);
+    FloatType& pow(float exp);
+    void powInternal(float exp);
 
     private:
         float* value = nullptr;
@@ -306,6 +314,12 @@ struct DoubleType
     DoubleType& multiply(double rhs);
     DoubleType& divide(double rhs);
 
+    DoubleType& pow(const DoubleType& exp);
+    DoubleType& pow(const FloatType& exp);
+    DoubleType& pow(const IntType& exp);
+    DoubleType& pow(double exp);
+    void powInternal(double exp);
+
     private:
         double* value = nullptr;
 };
@@ -330,6 +344,12 @@ struct IntType
     IntType& subtract(int rhs);
     IntType& multiply(int rhs);
     IntType& divide(int rhs);
+
+    IntType& pow(const IntType& exp);
+    IntType& pow(const DoubleType& exp);
+    IntType& pow(const FloatType& exp);
+    IntType& pow(int exp);
+    void powInternal(int exp);
 
     private:
         int* value = nullptr;
@@ -363,6 +383,31 @@ FloatType& FloatType::divide(float rhs)
     return *this;
 }
 
+FloatType& FloatType::pow(const FloatType& exp)
+{
+
+}
+
+FloatType& FloatType::pow(const DoubleType& exp)
+{
+
+}
+
+FloatType& FloatType::pow(const IntType& exp)
+{
+
+}
+
+FloatType& FloatType::pow(float exp)
+{
+
+}
+
+void FloatType::powInternal(float exp)
+{
+    *value = std::pow(*value, exp);
+}
+
 
 // ---
 
@@ -390,6 +435,31 @@ DoubleType& DoubleType::divide(double rhs)
     if (0.0 == rhs)  std::cout << "warning: floating point division by zero!" << std::endl;
     if (value != nullptr) *value /= rhs;
     return *this;
+}
+
+DoubleType& DoubleType::pow(const DoubleType& exp)
+{
+
+}
+
+DoubleType& DoubleType::pow(const FloatType& exp)
+{
+
+}
+
+DoubleType& DoubleType::pow(const IntType& exp)
+{
+
+}
+
+DoubleType& DoubleType::pow(double exp)
+{
+
+}
+
+void DoubleType::powInternal(double exp)
+{
+    *value = std::pow(*value, exp);
 }
 
 
@@ -423,6 +493,31 @@ IntType& IntType::divide(int rhs)
     }
     if (value != nullptr) *value /= rhs;
     return *this;
+}
+
+IntType& IntType::pow(const IntType& exp)
+{
+
+}
+
+IntType& IntType::pow(const DoubleType& exp)
+{
+
+}
+
+IntType& IntType::pow(const FloatType& exp)
+{
+
+}
+
+IntType& IntType::pow(int exp)
+{
+
+}
+
+void IntType::powInternal(int exp)
+{
+    *value = static_cast<int>(std::pow(*value, exp));
 }
 
 
