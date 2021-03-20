@@ -49,9 +49,103 @@ Project 4: Part 4 / 9
 #include <iostream>
 #include <cmath>
 
-struct FloatType;
+
 struct DoubleType;
 struct IntType;
+
+// ---
+
+struct FloatType
+{
+    FloatType(float initValue): value(new float(initValue)) {}
+    ~FloatType()
+    {
+        delete value;
+        value = nullptr;
+    }
+
+    operator float() const
+    { 
+        return *value; 
+    }
+
+    FloatType& add(float rhs);
+    FloatType& subtract(float rhs);
+    FloatType& multiply(float rhs);  
+    FloatType& divide(float rhs);
+
+    FloatType& pow(const FloatType& exp);
+    FloatType& pow(const DoubleType& exp);
+    FloatType& pow(const IntType& exp);
+    FloatType& pow(float exp);
+    void powInternal(float exp);
+
+    private:
+        float* value = nullptr;
+};
+
+// ---
+
+struct DoubleType
+{
+    DoubleType(double initValue) : value(new double(initValue)) {}
+    ~DoubleType()
+    {
+        delete value;
+        value = nullptr;
+    }
+
+    operator double() const
+    { 
+        return *value; 
+    }
+
+    DoubleType& add(double rhs);
+    DoubleType& subtract(double rhs);
+    DoubleType& multiply(double rhs);
+    DoubleType& divide(double rhs);
+
+    DoubleType& pow(const DoubleType& exp);
+    DoubleType& pow(const FloatType& exp);
+    DoubleType& pow(const IntType& exp);
+    DoubleType& pow(double exp);
+    void powInternal(double exp);
+
+    private:
+        double* value = nullptr;
+};
+
+// ---
+
+struct IntType
+{
+    IntType(int initValue) : value(new int(initValue)) {}
+    ~IntType()
+    {
+        delete value;
+        value = nullptr;
+    }
+
+    operator int() const
+    { 
+        return *value; 
+    }
+
+    IntType& add(int rhs);
+    IntType& subtract(int rhs);
+    IntType& multiply(int rhs);
+    IntType& divide(int rhs);
+
+    IntType& pow(const IntType& exp);
+    IntType& pow(const DoubleType& exp);
+    IntType& pow(const FloatType& exp);
+    IntType& pow(int exp);
+    void powInternal(int exp);
+
+    private:
+        int* value = nullptr;
+};
+
 
 struct Point
 {
@@ -262,98 +356,6 @@ struct HeapA
     }
 };
 
-// ---
-
-struct FloatType
-{
-    FloatType(float initValue): value(new float(initValue)) {}
-    ~FloatType()
-    {
-        delete value;
-        value = nullptr;
-    }
-
-    operator float() const
-    { 
-        return *value; 
-    }
-
-    FloatType& add(float rhs);
-    FloatType& subtract(float rhs);
-    FloatType& multiply(float rhs);  
-    FloatType& divide(float rhs);
-
-    FloatType& pow(const FloatType& exp);
-    FloatType& pow(const DoubleType& exp);
-    FloatType& pow(const IntType& exp);
-    FloatType& pow(float exp);
-    void powInternal(float exp);
-
-    private:
-        float* value = nullptr;
-};
-
-// ---
-
-struct DoubleType
-{
-    DoubleType(double initValue) : value(new double(initValue)) {}
-    ~DoubleType()
-    {
-        delete value;
-        value = nullptr;
-    }
-
-    operator double() const
-    { 
-        return *value; 
-    }
-
-    DoubleType& add(double rhs);
-    DoubleType& subtract(double rhs);
-    DoubleType& multiply(double rhs);
-    DoubleType& divide(double rhs);
-
-    DoubleType& pow(const DoubleType& exp);
-    DoubleType& pow(const FloatType& exp);
-    DoubleType& pow(const IntType& exp);
-    DoubleType& pow(double exp);
-    void powInternal(double exp);
-
-    private:
-        double* value = nullptr;
-};
-
-// ---
-
-struct IntType
-{
-    IntType(int initValue) : value(new int(initValue)) {}
-    ~IntType()
-    {
-        delete value;
-        value = nullptr;
-    }
-
-    operator int() const
-    { 
-        return *value; 
-    }
-
-    IntType& add(int rhs);
-    IntType& subtract(int rhs);
-    IntType& multiply(int rhs);
-    IntType& divide(int rhs);
-
-    IntType& pow(const IntType& exp);
-    IntType& pow(const DoubleType& exp);
-    IntType& pow(const FloatType& exp);
-    IntType& pow(int exp);
-    void powInternal(int exp);
-
-    private:
-        int* value = nullptr;
-};
 
 // ---------
 
