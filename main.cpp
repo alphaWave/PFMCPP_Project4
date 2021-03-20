@@ -273,7 +273,7 @@ struct FloatType
         value = nullptr;
     }
 
-    operator float() 
+    operator float() const
     { 
         return *value; 
     }
@@ -304,7 +304,7 @@ struct DoubleType
         value = nullptr;
     }
 
-    operator double() 
+    operator double() const
     { 
         return *value; 
     }
@@ -335,7 +335,7 @@ struct IntType
         value = nullptr;
     }
 
-    operator int() 
+    operator int() const
     { 
         return *value; 
     }
@@ -385,27 +385,34 @@ FloatType& FloatType::divide(float rhs)
 
 FloatType& FloatType::pow(const FloatType& exp)
 {
-
+    powInternal(float(exp));
+    return *this;
 }
 
 FloatType& FloatType::pow(const DoubleType& exp)
 {
-
+    powInternal(static_cast<float>(double(exp)));
+    return *this;
 }
 
 FloatType& FloatType::pow(const IntType& exp)
 {
-
+    powInternal(static_cast<float>(int(exp)));
+    return *this;
 }
 
 FloatType& FloatType::pow(float exp)
 {
-
+    powInternal(exp);
+    return *this;
 }
 
 void FloatType::powInternal(float exp)
 {
-    *value = std::pow(*value, exp);
+    if (value != nullptr)
+    {
+        *value = std::pow(*value, exp);
+    }
 }
 
 
@@ -439,22 +446,26 @@ DoubleType& DoubleType::divide(double rhs)
 
 DoubleType& DoubleType::pow(const DoubleType& exp)
 {
-
+    powInternal(double(exp));
+    return *this;
 }
 
 DoubleType& DoubleType::pow(const FloatType& exp)
 {
-
+    powInternal(static_cast<double>(float(exp)));
+    return *this;
 }
 
 DoubleType& DoubleType::pow(const IntType& exp)
 {
-
+    powInternal(static_cast<double>(int(exp)));
+    return *this;
 }
 
 DoubleType& DoubleType::pow(double exp)
 {
-
+    powInternal(exp);
+    return *this;
 }
 
 void DoubleType::powInternal(double exp)
@@ -497,22 +508,26 @@ IntType& IntType::divide(int rhs)
 
 IntType& IntType::pow(const IntType& exp)
 {
-
+    powInternal(int(exp));
+    return *this;
 }
 
 IntType& IntType::pow(const DoubleType& exp)
 {
-
+    powInternal(static_cast<int>(double(exp)));
+    return *this;
 }
 
 IntType& IntType::pow(const FloatType& exp)
 {
-
+    powInternal(static_cast<int>(float(exp)));
+    return *this;
 }
 
 IntType& IntType::pow(int exp)
 {
-
+    powInternal(exp);
+    return*this;
 }
 
 void IntType::powInternal(int exp)
