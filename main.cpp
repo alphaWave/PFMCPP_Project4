@@ -176,8 +176,8 @@ struct Point
     
     Point& multiply(IntType& m)
     {
-        x = static_cast<float>(int(m));
-        y = static_cast<float>(int(m));
+        x *= static_cast<float>(int(m));
+        y *= static_cast<float>(int(m));
         return *this;
     }
 
