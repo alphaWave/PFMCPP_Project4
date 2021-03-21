@@ -162,28 +162,28 @@ struct Point
     
     Point& multiply(FloatType& m)
     {
-        x = static_cast<float>(m.multiply(x));
-        y = static_cast<float>(m.multiply(y));
+        x *= float(m);
+        y *= float(m);
         return *this;
     }
     
     Point& multiply(DoubleType& m)
     {
-        x = static_cast<float>(m.multiply(static_cast<double>(x)));
-        y = static_cast<float>(m.multiply(static_cast<double>(y)));
+        x *= static_cast<float>(double(m));
+        y *= static_cast<float>(double(m));
         return *this;
     }
     
     Point& multiply(IntType& m)
     {
-        x = static_cast<float>(m.multiply(static_cast<int>(x)));
-        y = static_cast<float>(m.multiply(static_cast<int>(y)));
+        x = static_cast<float>(int(m));
+        y = static_cast<float>(int(m));
         return *this;
     }
 
     void toString()
     {
-        std::cout << "x = " << x << ", y = " << y << std::endl;
+        std::cout << "Point { x: " << x << ", y: " << y << " }" << std::endl;
     }
 
 private:
