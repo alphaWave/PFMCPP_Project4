@@ -180,7 +180,12 @@ struct Point
         y = static_cast<float>(m.multiply(static_cast<int>(y)));
         return *this;
     }
-    
+
+    void toString()
+    {
+        std::cout << "x = " << x << ", y = " << y << std::endl;
+    }
+
 private:
     float x{0}, y{0};
 };
@@ -640,6 +645,8 @@ int main()
     std::cout << "---------------------\n" << std::endl; 
 
     part3();
+
+    part4();
 
     std::cout << "good to go!\n";
 
