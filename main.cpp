@@ -149,12 +149,38 @@ struct IntType
 
 struct Point
 {
+    Point(float myX, float myY) : x(myX), y(myY)
+    {
+    }
+
     Point& multiply(float m)
     {
         x *= m;
         y *= m;
         return *this;
     }
+    
+    Point& multiply(FloatType& m)
+    {
+        x = static_cast<float>(m.multiply(x));
+        y = static_cast<float>(m.multiply(y));
+        return *this;
+    }
+    
+    Point& multiply(DoubleType& m)
+    {
+        x = static_cast<float>(m.multiply(static_cast<double>(x)));
+        y = static_cast<float>(m.multiply(static_cast<double>(y)));
+        return *this;
+    }
+    
+    Point& multiply(IntType& m)
+    {
+        x = static_cast<float>(m.multiply(static_cast<int>(x)));
+        y = static_cast<float>(m.multiply(static_cast<int>(y)));
+        return *this;
+    }
+    
 private:
     float x{0}, y{0};
 };
