@@ -412,17 +412,17 @@ FloatType& FloatType::divide(float rhs)
 
 FloatType& FloatType::pow(const FloatType& exp)
 {
-    return powInternal(float(exp));
+    return powInternal(static_cast<float>(exp));
 }
 
 FloatType& FloatType::pow(const DoubleType& exp)
 {
-    return powInternal(static_cast<float>(double(exp)));
+    return powInternal(static_cast<float>(static_cast<double>(exp)));
 }
 
 FloatType& FloatType::pow(const IntType& exp)
 {
-    return powInternal(static_cast<float>(int(exp)));
+    return powInternal(static_cast<float>(static_cast<int>(exp)));
 }
 
 FloatType& FloatType::pow(float exp)
@@ -467,17 +467,17 @@ DoubleType& DoubleType::divide(double rhs)
 
 DoubleType& DoubleType::pow(const DoubleType& exp)
 {
-    return powInternal(double(exp));
+    return powInternal(static_cast<double>(exp));
 }
 
 DoubleType& DoubleType::pow(const FloatType& exp)
 {
-    return powInternal(static_cast<double>(float(exp)));
+    return powInternal(static_cast<double>(static_cast<float>(exp)));
 }
 
 DoubleType& DoubleType::pow(const IntType& exp)
 {
-    return powInternal(static_cast<double>(int(exp)));
+    return powInternal(static_cast<double>(static_cast<int>(exp)));
 }
 
 DoubleType& DoubleType::pow(double exp)
@@ -526,17 +526,17 @@ IntType& IntType::divide(int rhs)
 
 IntType& IntType::pow(const IntType& exp)
 {
-    return powInternal(int(exp));
+    return powInternal(static_cast<int>(exp));
 }
 
 IntType& IntType::pow(const DoubleType& exp)
 {
-    return powInternal(static_cast<int>(double(exp)));
+    return powInternal(static_cast<int>(static_cast<double>(exp)));
 }
 
 IntType& IntType::pow(const FloatType& exp)
 {
-    return powInternal(static_cast<int>(float(exp)));
+    return powInternal(static_cast<int>(static_cast<float>(exp)));
 }
 
 IntType& IntType::pow(int exp)
