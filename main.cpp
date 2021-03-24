@@ -46,16 +46,140 @@ Project 4: Part 4 / 9
  You will need to use Forward Declaration and out-of-class definitions to complete this.
  */
 
+#include <iostream>
+#include <cmath>
+
+
+struct DoubleType;
+struct IntType;
+
+// ---
+
+struct FloatType
+{
+    FloatType(float initValue): value(new float(initValue)) {}
+    ~FloatType()
+    {
+        delete value;
+        value = nullptr;
+    }
+
+    operator float() const
+    { 
+        return *value; 
+    }
+
+    FloatType& add(float rhs);
+    FloatType& subtract(float rhs);
+    FloatType& multiply(float rhs);  
+    FloatType& divide(float rhs);
+
+    FloatType& pow(const FloatType& exp);
+    FloatType& pow(const DoubleType& exp);
+    FloatType& pow(const IntType& exp);
+    FloatType& pow(float exp);
+
+    private:
+        float* value = nullptr;
+        FloatType& powInternal(float exp);
+};
+
+// ---
+
+struct DoubleType
+{
+    DoubleType(double initValue) : value(new double(initValue)) {}
+    ~DoubleType()
+    {
+        delete value;
+        value = nullptr;
+    }
+
+    operator double() const
+    { 
+        return *value; 
+    }
+
+    DoubleType& add(double rhs);
+    DoubleType& subtract(double rhs);
+    DoubleType& multiply(double rhs);
+    DoubleType& divide(double rhs);
+
+    DoubleType& pow(const DoubleType& exp);
+    DoubleType& pow(const FloatType& exp);
+    DoubleType& pow(const IntType& exp);
+    DoubleType& pow(double exp);
+
+    private:
+        double* value = nullptr;
+        DoubleType& powInternal(double exp);
+};
+
+// ---
+
+struct IntType
+{
+    IntType(int initValue) : value(new int(initValue)) {}
+    ~IntType()
+    {
+        delete value;
+        value = nullptr;
+    }
+
+    operator int() const
+    { 
+        return *value; 
+    }
+
+    IntType& add(int rhs);
+    IntType& subtract(int rhs);
+    IntType& multiply(int rhs);
+    IntType& divide(int rhs);
+
+    IntType& pow(const IntType& exp);
+    IntType& pow(const DoubleType& exp);
+    IntType& pow(const FloatType& exp);
+    IntType& pow(int exp);
+
+    private:
+        int* value = nullptr;
+        IntType& powInternal(int exp);
+};
 
 
 struct Point
 {
+    Point(float myX, float myY) : x(myX), y(myY)
+    {
+    }
+
     Point& multiply(float m)
     {
         x *= m;
         y *= m;
         return *this;
     }
+    
+    Point& multiply(FloatType& m)
+    {
+        return multiply(float(m));
+    }
+    
+    Point& multiply(DoubleType& m)
+    {
+        return multiply(static_cast<float>(double(m)));
+    }
+    
+    Point& multiply(IntType& m)
+    {
+        return multiply(static_cast<float>(int(m)));
+    }
+
+    void toString()
+    {
+        std::cout << "Point { x: " << x << ", y: " << y << " }" << std::endl;
+    }
+
 private:
     float x{0}, y{0};
 };
@@ -257,83 +381,6 @@ struct HeapA
     }
 };
 
-#include <iostream>
-
-struct DoubleType;
-struct IntType;
-
-struct FloatType
-{
-    FloatType(float initValue): value(new float(initValue)) {}
-    ~FloatType()
-    {
-        delete value;
-        value = nullptr;
-    }
-
-    operator float() 
-    { 
-        return *value; 
-    }
-
-    FloatType& add(float rhs);
-    FloatType& subtract(float rhs);
-    FloatType& multiply(float rhs);  
-    FloatType& divide(float rhs);
-
-    private:
-        float* value = nullptr;
-};
-
-// ---
-
-struct DoubleType
-{
-    DoubleType(double initValue) : value(new double(initValue)) {}
-    ~DoubleType()
-    {
-        delete value;
-        value = nullptr;
-    }
-
-    operator double() 
-    { 
-        return *value; 
-    }
-
-    DoubleType& add(double rhs);
-    DoubleType& subtract(double rhs);
-    DoubleType& multiply(double rhs);
-    DoubleType& divide(double rhs);
-
-    private:
-        double* value = nullptr;
-};
-
-// ---
-
-struct IntType
-{
-    IntType(int initValue) : value(new int(initValue)) {}
-    ~IntType()
-    {
-        delete value;
-        value = nullptr;
-    }
-
-    operator int() 
-    { 
-        return *value; 
-    }
-
-    IntType& add(int rhs);
-    IntType& subtract(int rhs);
-    IntType& multiply(int rhs);
-    IntType& divide(int rhs);
-
-    private:
-        int* value = nullptr;
-};
 
 // ---------
 
@@ -363,6 +410,32 @@ FloatType& FloatType::divide(float rhs)
     return *this;
 }
 
+FloatType& FloatType::pow(const FloatType& exp)
+{
+    return powInternal(static_cast<float>(exp));
+}
+
+FloatType& FloatType::pow(const DoubleType& exp)
+{
+    return powInternal(static_cast<float>(static_cast<double>(exp)));
+}
+
+FloatType& FloatType::pow(const IntType& exp)
+{
+    return powInternal(static_cast<float>(static_cast<int>(exp)));
+}
+
+FloatType& FloatType::pow(float exp)
+{
+    return powInternal(exp);
+}
+
+FloatType& FloatType::powInternal(float exp)
+{
+    if (value != nullptr) *value = std::pow(*value, exp);
+    return *this;
+}
+
 
 // ---
 
@@ -389,6 +462,32 @@ DoubleType& DoubleType::divide(double rhs)
 {
     if (0.0 == rhs)  std::cout << "warning: floating point division by zero!" << std::endl;
     if (value != nullptr) *value /= rhs;
+    return *this;
+}
+
+DoubleType& DoubleType::pow(const DoubleType& exp)
+{
+    return powInternal(static_cast<double>(exp));
+}
+
+DoubleType& DoubleType::pow(const FloatType& exp)
+{
+    return powInternal(static_cast<double>(static_cast<float>(exp)));
+}
+
+DoubleType& DoubleType::pow(const IntType& exp)
+{
+    return powInternal(static_cast<double>(static_cast<int>(exp)));
+}
+
+DoubleType& DoubleType::pow(double exp)
+{
+    return powInternal(exp);
+}
+
+DoubleType& DoubleType::powInternal(double exp)
+{
+    if (value != nullptr) *value = std::pow(*value, exp);
     return *this;
 }
 
@@ -422,6 +521,32 @@ IntType& IntType::divide(int rhs)
         return *this;
     }
     if (value != nullptr) *value /= rhs;
+    return *this;
+}
+
+IntType& IntType::pow(const IntType& exp)
+{
+    return powInternal(static_cast<int>(exp));
+}
+
+IntType& IntType::pow(const DoubleType& exp)
+{
+    return powInternal(static_cast<int>(static_cast<double>(exp)));
+}
+
+IntType& IntType::pow(const FloatType& exp)
+{
+    return powInternal(static_cast<int>(static_cast<float>(exp)));
+}
+
+IntType& IntType::pow(int exp)
+{
+    return powInternal(exp);
+}
+
+IntType& IntType::powInternal(int exp)
+{
+    if (value != nullptr) *value = static_cast<int>(std::pow(*value, exp));
     return *this;
 }
 
@@ -502,6 +627,8 @@ int main()
     std::cout << "---------------------\n" << std::endl; 
 
     part3();
+
+    part4();
 
     std::cout << "good to go!\n";
 
