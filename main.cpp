@@ -43,6 +43,8 @@ build/run to make sure you don't have any errors
  If you need to see an example, look at https://bitbucket.org/MatkatMusic/pfmcpptasks/src/master/Projects/Project4/Part6Example.cpp
  */
 
+ // MY REMARK: videos watched up to and including Lambdas 2
+
 void part6()
 {
     FloatType ft3(3.0f);
